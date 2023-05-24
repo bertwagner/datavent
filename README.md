@@ -6,4 +6,6 @@ An event management application for programming conferences.
 
 `docker-compose up -d`
 
-Then navigate to http://127.0.0.1:8000
+Then navigate to http://localhost:8000
+
+[This article](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) was used as a starting point.
