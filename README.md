@@ -50,6 +50,7 @@ Dev:
 Prod:
 `docker-compose -f docker-compose.prod.yml up --build -d`
 `docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput`
+`docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear`
 
 Then navigate to http://localhost:8000
 
