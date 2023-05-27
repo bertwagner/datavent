@@ -17,8 +17,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=abc123
       - POSTGRES_DB=datavent
 
 volumes:
