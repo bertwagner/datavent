@@ -45,13 +45,15 @@ POSTGRES_DB=datavent_prod
 
 ## Start containers
 Dev:
-`docker-compose up -d`
+`make dev`
 
 Prod:
-`docker-compose -f docker-compose.prod.yml up --build -d`
-`docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput`
-`docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear`
+`make prod`
 
-Then navigate to http://localhost:8000
+Stop: 
+`make stop`
+
+Then navigate to http://localhost:8000 (dev) or http://localhost:1337 (prod)
 
 [This article](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) was used as a starting point.
+As well as [this article on Django](https://docs.djangoproject.com/en/4.2/intro/tutorial01/).
