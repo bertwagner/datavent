@@ -5,5 +5,7 @@ from django.template import loader
 
 
 def index(request):
-    # return HttpResponse("Hello, world. You're at the polls index.")
     return render(request, "datavent/index.html")
+
+def schedule(request):
+    return render(request, "datavent/schedule.html")
