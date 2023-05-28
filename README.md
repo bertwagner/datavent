@@ -6,42 +6,7 @@ An event management application for programming conferences.
 
 
 ## Config
-In the root project folder, create the following 3 files. Update SECRET_KEY, SQL_USER, and SQL_PASSWORD values:
-
-.env.dev:
-```
-DEBUG=1
-SECRET_KEY=foo
-DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-SQL_ENGINE=django.db.backends.postgresql
-SQL_DATABASE=datavent
-SQL_USER=admin
-SQL_PASSWORD=abc123
-SQL_HOST=db
-SQL_PORT=5432
-DATABASE=postgres
-```
-
-.env.prod:
-```
-DEBUG=0
-SECRET_KEY=change_me
-DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-SQL_ENGINE=django.db.backends.postgresql
-SQL_DATABASE=datavent_prod
-SQL_USER=admin
-SQL_PASSWORD=abc123
-SQL_HOST=db
-SQL_PORT=5432
-DATABASE=postgres
-```
-
-.env.prod.db
-```
-POSTGRES_USER=admin
-POSTGRES_PASSWORD=abc123
-POSTGRES_DB=datavent_prod
-```
+In the root project folder, remove the "-sample" suffix from the .env files. Update the variables in those files that have "CHANGEME" mentioned in them (ie. don't use the default secret keys, usernames, and passwords).
 
 ## Start containers
 Dev:

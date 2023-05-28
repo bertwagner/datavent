@@ -7,4 +7,4 @@ prod:
 	docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
 
 stop:
-	docker-compose down -v 
+	docker-compose down -v --remove-orphans
