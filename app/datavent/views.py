@@ -7,5 +7,6 @@ from django.template import loader
 def index(request):
     return render(request, "datavent/index.html")
 
+
 def schedule(request):
     return render(request, "datavent/schedule.html")
