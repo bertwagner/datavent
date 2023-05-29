@@ -4,6 +4,9 @@ An event management application for programming conferences.
 
 # Build instructions
 
+## Prereqs
+
+You must have Docker installed. All code is written to be ran on a unix based system. It was developed on a WSL2 debian environment.
 
 ## Config
 In the root project folder, remove the "-sample" suffix from the .env files. Update the variables in those files that have "CHANGEME" mentioned in them (ie. don't use the default secret keys, usernames, and passwords).
