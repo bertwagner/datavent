@@ -8,7 +8,7 @@ dev:
 	docker-compose up --build
 
 prod:
-	docker-compose -f docker-compose.prod.yml up --build -d
+	docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build -d
 	docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
 	docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
 
@@ -40,6 +40,3 @@ deploy-prod:
 	scp -i ~/.ssh/neodata.dev.pem -r .env.prod.db admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r .env.prod.proxy-companion admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r docker-compose.prod.yml admin@${ELASTIC_IP}:~/neodata
-
-wtf:
-	echo "hi"
