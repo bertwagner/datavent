@@ -27,6 +27,7 @@ push-ecr-prod:
 
 deploy-staging:
 	scp -i ~/.ssh/neodata.dev.pem -r app admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r infra admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r nginx admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r .env.staging admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r .env.staging.db admin@${ELASTIC_IP}:~/neodata
@@ -35,6 +36,7 @@ deploy-staging:
 	
 deploy-prod:
 	scp -i ~/.ssh/neodata.dev.pem -r app admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r infra admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r nginx admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r .env.prod admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r .env.prod.db admin@${ELASTIC_IP}:~/neodata
