@@ -10,3 +10,7 @@ def index(request):
 
 def schedule(request):
     return render(request, "datavent/schedule.html")
+
+
+def code_of_conduct(request):
+    return render(request, "datavent/code-of-conduct.html")
