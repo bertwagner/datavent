@@ -1,3 +1,9 @@
+# Read in variables form a .env file
+ifneq (,$(wildcard ./.env.prod))
+    include .env.prod
+    export
+endif
+
 dev:
 	docker-compose up --build
 
@@ -10,17 +16,30 @@ stop:
 	docker-compose down -v --remove-orphans
 
 push-ecr-staging:
-	docker-compose -f docker-compose.staging.yml build  
-	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 756669507085.dkr.ecr.us-east-1.amazonaws.com
+	docker-compose -f docker-compose.staging.yml --env-file .env.staging build  
+	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_URI_BASE}
 	docker-compose -f docker-compose.staging.yml push
 
 push-ecr-prod:
-	docker-compose -f docker-compose.prod.yml build  
-	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 756669507085.dkr.ecr.us-east-1.amazonaws.com
+	docker-compose -f docker-compose.prod.yml --env-file .env.prod build  
+	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_URI_BASE}
 	docker-compose -f docker-compose.prod.yml push
 
 deploy-staging:
-	scp -i ~/.ssh/neodata.dev.pem -r $(pwd)/{app,nginx,.env.staging,.env.staging.db,.env.staging.proxy-companion,docker-compose.staging.yml} admin@52.204.136.74:~/neodata
-
+	scp -i ~/.ssh/neodata.dev.pem -r app admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r nginx admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r .env.staging admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r .env.staging.db admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r .env.staging.proxy-companion admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r docker-compose.staging.yml admin@${ELASTIC_IP}:~/neodata
+	
 deploy-prod:
-	scp -i ~/.ssh/neodata.dev.pem -r $(pwd)/{app,nginx,.env.prod,.env.prod.db,.env.prod.proxy-companion,docker-compose.prod.yml} admin@52.204.136.74:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r app admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r nginx admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r .env.prod admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r .env.prod.db admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r .env.prod.proxy-companion admin@${ELASTIC_IP}:~/neodata
+	scp -i ~/.ssh/neodata.dev.pem -r docker-compose.prod.yml admin@${ELASTIC_IP}:~/neodata
+
+wtf:
+	echo "hi"
