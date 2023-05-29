@@ -40,3 +40,6 @@ deploy-prod:
 	scp -i ~/.ssh/neodata.dev.pem -r .env.prod.db admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r .env.prod.proxy-companion admin@${ELASTIC_IP}:~/neodata
 	scp -i ~/.ssh/neodata.dev.pem -r docker-compose.prod.yml admin@${ELASTIC_IP}:~/neodata
+
+ssh:
+	ssh -i ~/.ssh/neodata.dev.pem admin@${ELASTIC_IP}
