@@ -5,7 +5,7 @@ ifneq (,$(wildcard ./.env.prod))
 endif
 
 dev:
-	docker-compose up --build
+	docker-compose up --build -d
 
 prod:
 	docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build -d
