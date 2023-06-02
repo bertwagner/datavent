@@ -18,10 +18,11 @@ from django.contrib import admin
 from django.urls import include,path
 from . import views
 
+
 urlpatterns = [
     path("", views.index, name="index"),
     path("schedule", views.schedule, name="schedule"),
     path("code-of-conduct", views.code_of_conduct, name="code-of-conduct"),
-    path("registration/", include("registration.urls")),
+    path("registration/", include("registration.urls", namespace="registration")),
     path('admin/', admin.site.urls),
 ]

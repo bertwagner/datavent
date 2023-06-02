@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse
 
+from .models import Registration
+
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the registration index.")
+    return render(request, "registration/index.html")
