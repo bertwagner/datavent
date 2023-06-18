@@ -1,3 +1,5 @@
-Django
+fastapi
 psycopg2-binary
 gunicorn
+uvicorn
+jinja2
