@@ -11,17 +11,19 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
-    return templates.TemplateResponse("index.html",{"request":request})
+    return templates.TemplateResponse("index.html", {"request": request})
+
 
 @app.get("/register", response_class=HTMLResponse)
-async def schedule(request: Request):
-    return templates.TemplateResponse("register.html",{"request":request})
+async def register(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+
 
 @app.get("/schedule", response_class=HTMLResponse)
 async def schedule(request: Request):
-    return templates.TemplateResponse("schedule.html",{"request":request})
+    return templates.TemplateResponse("schedule.html", {"request": request})
+
 
 @app.get("/code-of-conduct", response_class=HTMLResponse)
-async def schedule(request: Request):
-    return templates.TemplateResponse("code-of-conduct.html",{"request":request})
-
+async def code_of_conduct(request: Request):
+    return templates.TemplateResponse("code-of-conduct.html", {"request": request})
