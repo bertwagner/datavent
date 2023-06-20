@@ -1,7 +1,12 @@
 #!/bin/bash
 
-#docker-compose -f docker-compose.prod.yml down -v --remove-orphans
+source .env.prod
 
-docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build -d
-# docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
-# docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
+
+docker-compose -f docker-compose.prod.yml --env-file .env.prod down -v --remove-orphans
+
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URI_BASE
+docker pull $ECR_URI:web
+docker pull $ECR_URI:nginx-proxy
+
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
