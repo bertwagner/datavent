@@ -7,24 +7,26 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'datavent/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'datavent/style.css' %}">
+    {% block headscript %}
+    {% endblock headscript %}
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Ohio North Data Saturday</a>
+        <a class="navbar-brand" href="/">Ohio North Data Saturday</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" {% if request.resolver_match.url_name == 'index' %}aria-current="page"{% endif %} href="/">About</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'index' and request.resolver_match.route == '' %}active{% endif %}" {% if request.resolver_match.url_name == 'index' and request.resolver_match.route == '' %}aria-current="page"{% endif %} href="{% url 'index' %}">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Register</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'index' and request.resolver_match.route == 'registration/' %}active{% endif %}" {% if request.resolver_match.url_name == 'index' and request.resolver_match.route == 'registration/' %}aria-current="page"{% endif %} href="{% url 'registration:index' %}">Register</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.url_name == 'schedule' %}active{% endif %}" {% if request.resolver_match.url_name == 'schedule' %}aria-current="page"{% endif %} href="schedule">Schedule</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'schedule' %}active{% endif %}" {% if request.resolver_match.url_name == 'schedule' %}aria-current="page"{% endif %} href="{% url 'schedule' %}">Schedule</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">More...</a>
@@ -33,7 +35,7 @@
                 <li><a class="dropdown-item disabled" href="#">FAQs</a></li>
                 <li><a class="dropdown-item disabled" href="#">Call for Speakers</a></li>
                 <li><a class="dropdown-item disabled" href="#">Sponsorship Plans</a></li>
-                <li><a class="dropdown-item disabled" href="#">Code of Conduct</a></li>
+                <li><a class="dropdown-item" href="{% url 'code-of-conduct' %}">Code of Conduct</a></li>
                 <li><a class="dropdown-item disabled" href="#">Contact</a></li>
               </ul>
             </li>
