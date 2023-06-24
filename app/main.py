@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 import psycopg2
+import psycopg2.extras
 
 app = FastAPI()
 sql_host = os.environ.get("SQL_HOST")
@@ -26,7 +27,24 @@ async def root(request: Request):
 
 @app.get("/register", response_class=HTMLResponse)
 async def register(request: Request):
-    return templates.TemplateResponse("register.html", {"request": request})
+    conn = psycopg2.connect(f"dbname='{sql_database}' host='{sql_host}' port='{sql_port}' user='{sql_user}' password='{sql_password}'")
+    with conn as c:
+        cur = c.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        query = """
+            SELECT
+                id, 
+                name,
+                description,
+                price
+            FROM
+                product
+            ORDER BY
+                id
+            """
+        cur.execute(query)
+        records = cur.fetchall()
+
+    return templates.TemplateResponse("register.html", {"request": request, "products": records})
 
 
 @app.get("/schedule", response_class=HTMLResponse)
@@ -38,12 +56,3 @@ async def schedule(request: Request):
 async def code_of_conduct(request: Request):
     return templates.TemplateResponse("code-of-conduct.html", {"request": request})
 
-@app.get("/pg")
-async def pg():
-    conn = psycopg2.connect(f"dbname='{sql_database}' host='{sql_host}' port='{sql_port}' user='{sql_user}' password='{sql_password}'")
-    with conn as c:
-        cur = c.cursor()
-        cur.execute("SELECT 'a' as test;")
-        records = cur.fetchall()
-
-    return {'message': "connected!"}

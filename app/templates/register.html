@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="container">
   <div class="px-4 py-5 my-5 text-center">
     <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Register</h1>
@@ -86,18 +87,20 @@
 
         <hr class="my-4 col-8">
 
+        {% if products|length > 1 %}
         <h3>Add-Ons</h3>
         <p>Please select any offerings you would like to include as part of your registration.</p>
         
-          <div class="col mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="lunch">
-            <label class="form-check-label" for="lunch">$16 - Includes chicken wraps OR veggie wrap, veggie chili, meat toppings, and more.</label>
-          </div>
-
+          {% for product in products %}
+            {% if product["name"] != "Registration" %}
             <div class="col mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="tutorial1">
-              <label class="form-check-label" for="tutorial1">$90 - Registration for the Power BI half-day Tutorial.</label>
+              <input type="checkbox" class="form-check-input" id="{{ product['id'] }}">
+              <label class="form-check-label" for="{{ product['name'] }}">{{ product['price'] }} - {{ product['description'] }}</label>
             </div>
+            {% endif %}
+          {% endfor %}
+
+        {% endif %}
 
         <hr class="my-4 col-8">
 
