@@ -11,7 +11,13 @@ prod:
 	docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build -d
 
 stop:
+	docker-compose down
+
+delete-volumes:
 	docker-compose down -v --remove-orphans
+
+pg:
+	docker exec -it datavent-db-1 psql --username=${SQL_USER} --dbname=${SQL_DATABASE}
 
 push-ecr-staging:
 	docker-compose -f docker-compose.staging.yml --env-file .env.staging build  
