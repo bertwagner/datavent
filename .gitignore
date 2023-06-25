@@ -5,4 +5,6 @@
 .env.prod.db
 .env.staging.proxy-companion
 .env.prod.proxy-companion
+
+*Zone.Identifier
 __pycache__

@@ -10,47 +10,15 @@
     <div class="col-md-5 col-lg-4 order-md-last">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-primary">Your cart</span>
-        <span class="badge bg-primary rounded-pill">3</span>
+        <span class="badge bg-primary rounded-pill" id="cart-count">3</span>
       </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Registration</h6>
-            <small class="text-body-secondary">All-day conference entry</small>
-          </div>
-          <span class="text-body-secondary">FREE</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Lunch</h6>
-            <small class="text-body-secondary">Optional lunch add-on</small>
-          </div>
-          <span class="text-body-secondary">$16</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Power BI Tutorial</h6>
-            <small class="text-body-secondary">Half-day Tutorial on Power BI</small>
-          </div>
-          <span class="text-body-secondary">$90</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-          <div class="text-success">
-            <h6 class="my-0">Promo code</h6>
-            <small>FREEVOLUNTEERLUNCH</small>
-          </div>
-          <span class="text-success">−$16</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$90</strong>
-        </li>
+      <ul class="list-group mb-3" id="cart-list">
       </ul>
 
       <form class="card p-2">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Promo code">
-          <button type="submit" class="btn btn-secondary">Redeem</button>
+          <button type="button" class="btn btn-secondary" id="coupon-redeem">Redeem</button>
         </div>
       </form>
     </div>
@@ -92,9 +60,11 @@
         <p>Please select any offerings you would like to include as part of your registration.</p>
         
           {% for product in products %}
-            {% if product["name"] != "Registration" %}
+            {% if product["name"] == "Registration" %}
+            <input type="hidden" class="product" id="{{ product['id'] }}" checked="checked" data-price="{{ product['price'] }}" data-description="{{ product['description'] }}" data-name="{{ product['name'] }}">
+            {% else %}
             <div class="col mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="{{ product['id'] }}">
+              <input type="checkbox" class="form-check-input product" id="{{ product['id'] }}" data-price="{{ product['price'] }}" data-description="{{ product['description'] }}"  data-name="{{ product['name'] }}">
               <label class="form-check-label" for="{{ product['name'] }}">{{ product['price'] }} - {{ product['description'] }}</label>
             </div>
             {% endif %}
@@ -117,3 +87,7 @@
   
 </div>
 {% endblock content %}
+
+{% block js %}
+<script src="/static/js/register.js"></script>
+{% endblock js %}
