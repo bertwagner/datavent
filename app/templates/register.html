@@ -17,7 +17,7 @@
 
       <form class="card p-2">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Promo code">
+          <input type="text" class="form-control" id="promo-code" placeholder="Promo code" />
           <button type="button" class="btn btn-secondary" id="coupon-redeem">Redeem</button>
         </div>
       </form>
@@ -60,7 +60,7 @@
         <p>Please select any offerings you would like to include as part of your registration.</p>
         
           {% for product in products %}
-            {% if product["name"] == "Registration" %}
+            {% if not product["is_addon"] %}
             <input type="hidden" class="product" id="{{ product['id'] }}" checked="checked" data-price="{{ product['price'] }}" data-description="{{ product['description'] }}" data-name="{{ product['name'] }}">
             {% else %}
             <div class="col mb-3 form-check">
@@ -69,6 +69,7 @@
             </div>
             {% endif %}
           {% endfor %}
+          <div id="hidden-products"></div>
 
         {% endif %}
 

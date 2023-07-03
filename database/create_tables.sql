@@ -3,5 +3,7 @@ CREATE TABLE product (
     name varchar(50),
     description varchar(400),
     price money,
+    is_addon boolean NOT NULL,
+    is_coupon boolean NOT NULL,
     create_date timestamp DEFAULT CURRENT_TIMESTAMP
 );
